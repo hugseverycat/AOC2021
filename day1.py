@@ -18,3 +18,4 @@ for i in range(3, measure_count):
 
 print("Part 1: " + str(increase_count_part_1))
 print("Part 2: " + str(increase_count_part_2))
+
