@@ -1,4 +1,4 @@
-filename = 'day1.txt'
+filename = 'puzzle_input/day1.txt'
 my_input = []
 increase_count_part_1 = 0
 increase_count_part_2 = 0
@@ -18,6 +18,3 @@ for i in range(3, measure_count):
 
 print("Part 1: " + str(increase_count_part_1))
 print("Part 2: " + str(increase_count_part_2))
-
-#test change
-
