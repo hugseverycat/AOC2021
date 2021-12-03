@@ -50,16 +50,19 @@ for c in range(input_length):
 
 
 def reduce_list(this_list, switch):
-    # a function to reduce a given list to 1 item
-    # this_list is the list we are reducing
-    # switch is 0 or 1, to determine whether we want the most common or
-    # least common
+    '''
+    a function to reduce a given list to 1 item
+    this_list is the list we are reducing
+    switch is 0 or 1, to determine whether we want the most common or
+    least common
+    '''
     
     c = 1    # setting the index to 1 because we already checked index 0
+    list_len = len(this_list)
     
     # this will go through and reduce the list index by index until only
     # 1 remains
-    while len(this_list) > 1:
+    while list_len > 1:
         mc = get_most_common(this_list, c)
         
         # if we're looking for least common instead of most common, then
@@ -69,20 +72,17 @@ def reduce_list(this_list, switch):
                 mc = '1'
             else:
                 mc = '0'
-                
-        list_len = len(this_list)
         i = 0
         
-        # delete every item that doesnt have the most common bit
-        while True:
-            try:
-                if this_list[i][c] == mc:
-                    i += 1    # only increment the index if not deleting
-                else:
-                    del this_list[i]
-            except IndexError:    # Stop at the end of the list
-                break
+        # delete every item that doesnt have the most common bit in pos c
+        while i < list_len:
+            if this_list[i][c] == mc:
+                i += 1    # only increment the index if not deleting
+            else:
+                del this_list[i]
+                list_len -= 1
         c += 1
+        
     return this_list[0]
 
 print("Part 2:", int(reduce_list(o2_list, 1), 2) *
