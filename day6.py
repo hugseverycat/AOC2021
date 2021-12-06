@@ -20,7 +20,7 @@ for this_day in range(0, day_count):
     fish_count.rotate(-1)         # The days rotate
     temp_age_8 = fish_count[6]    # New fish are born
     fish_count[6] += age7         # Add age 7 fish to the deque
-    age7 = age8                   # Age 8 fish become age 8
+    age7 = age8                   # Age 8 fish become age 7
     age8 = temp_age_8             # Put new fish into age 8
 
 total_fish = sum(fish_count) + age7 + age8
