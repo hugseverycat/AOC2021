@@ -17,8 +17,12 @@ for i in my_input:
 
 for this_day in range(0, day_count):
     fish_count.rotate(-1)             # Days til giving birth rotate
-    fish_count[6] += fish_count[8]    # Each fish who has just given
-                                      # birth adds a new fish to day 8
+    
+    fish_count[6] += fish_count[8]    # So the count at 0 has been rotated
+                                      # to 8. This indicates the fish just born.
+                                      # But the parents of these fish need
+                                      # to be added to 6. I promise it makes sense
+                                      
 
 total_fish = sum(fish_count)
 print(total_fish)
