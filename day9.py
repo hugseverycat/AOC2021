@@ -16,22 +16,22 @@ def get_adjacents(c, m):
     # m = (max_x, max_y)
     
     # Pulling them out into variables because i hate typing brackets
-    ax = c[0]
-    ay = c[1]
+    cx = c[0]
+    cy = c[1]
     mx = m[0]
     my = m[1]
     
     adjacents = []
     
     # Check whether the adjacent coords are valid and if so, add to list
-    if ax < mx:
-        adjacents.append((ax + 1, ay))
-    if ax > 0:
-        adjacents.append((ax - 1, ay))
-    if ay < my:
-        adjacents.append((ax, ay + 1))
-    if ay > 0:
-        adjacents.append((ax, ay - 1))
+    if cx < mx:
+        adjacents.append((cx + 1, cy))
+    if cx > 0:
+        adjacents.append((cx - 1, cy))
+    if cy < my:
+        adjacents.append((cx, cy + 1))
+    if cy > 0:
+        adjacents.append((cx, cy - 1))
     
     return adjacents
 
