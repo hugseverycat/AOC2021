@@ -1,5 +1,5 @@
 filename = "puzzle_input/day9.txt"
-#filename = "puzzle_input/test_input.txt"
+# filename = "puzzle_input/test_input.txt"
 
 heightmap = {}
 
@@ -16,10 +16,8 @@ def get_adjacents(c, m):
     # m = (max_x, max_y)
     
     # Pulling them out into variables because i hate typing brackets
-    cx = c[0]
-    cy = c[1]
-    mx = m[0]
-    my = m[1]
+    cx, cy = c
+    mx, my = m
     
     adjacents = []
     
@@ -37,7 +35,7 @@ def get_adjacents(c, m):
 
 local_minimums = []
 
-# Here we loop through each location, find its adjacents, then see if 
+# Here we loop through each location, find its adjacents, then see if
 # there are any lower.
 for this_loc in heightmap:
     is_local_minimum = True
@@ -55,7 +53,7 @@ risk = 0
 for this_loc in local_minimums:
     risk += 1 + heightmap[this_loc]
 
-print("Part 1:",risk)
+print("Part 1:", risk)
 
 
 '''Part 2 starts here'''
@@ -64,16 +62,17 @@ print("Part 1:",risk)
 # since no location can be in 2 or more basins.
 visited = []
 
+
 def find_basin(loc, hm_dict, v_list, m):
     # A recursive function to find the size of a basin.
-    # This function will first check find the adjacents of the location.
+    # This function will first find the adjacents of the location.
     # For each adjacent, it will check whether it has been visited already.
     # If not, it will check whether the location is 9.
     # If not, then it will call itself recursively and add that value
     # to the basin size.
     
     # We start with basin size 1 because this location we're checking
-    # has already been determined to be part of the basin, because it is
+    # has already been determined to be part of the basin, since it is
     # either the local minimum or we've already found it's not a 9.
     basin_size = 1
     
@@ -86,7 +85,7 @@ def find_basin(loc, hm_dict, v_list, m):
                 basin_size += find_basin(adj, hm_dict, v_list, m)
     return basin_size
       
-basin_list = []  
+basin_list = []
 for this_loc in local_minimums:
     visited.append(this_loc)    # Add this local min to the visited list
     basin_list.append(find_basin(this_loc, heightmap, visited, maximum))
