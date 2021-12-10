@@ -11,6 +11,7 @@ with open(filename) as file:
 
 corruption_score = 0
 incomplete_scores = []
+bracket_pairs = [('[', ']'), ('(', ')'), ('<', '>'), ('{', '}')]
 
 for this_line in my_input:
     brackets = []
@@ -26,17 +27,8 @@ for this_line in my_input:
             
             compare_c = brackets.pop()
             
-            # If the brackets don't pair up, this line is corrupt
-            if c == ']' and compare_c != '[':
-                corrupted = True
-                break
-            elif c == '>' and compare_c != '<':
-                corrupted = True
-                break
-            elif c == ')' and compare_c != '(':
-                corrupted = True
-                break
-            elif c == '}' and compare_c != '{':
+            # If the brackets aren't in the list of valid pairs, it's corrupt
+            if (compare_c, c) not in bracket_pairs:
                 corrupted = True
                 break
 
