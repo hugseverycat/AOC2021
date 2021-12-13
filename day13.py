@@ -14,8 +14,7 @@ with open(filename) as file:
         if line.strip() == '':
             for this_input in raw_input:
                 x, y = this_input.split(',')
-                x, y = int(x), int(y)
-                coords.add((x, y))
+                coords.add((int(x), int(y)))
             # Clear the raw_input list; now we will store folds in it
             raw_input = []
         else:
