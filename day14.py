@@ -3,6 +3,9 @@ from collections import defaultdict
 filename = 'puzzle_input/day14.txt'
 #filename = 'puzzle_input/test_input.txt'
 
+# We will keep track of everything in a dictionary
+# Since we don't need the full polymer, we just note the
+# pairs, elements, and the count of each
 insertion_rules = {}
 current_pairs = defaultdict(int)
 element_count = defaultdict(int)
@@ -16,16 +19,27 @@ with open(filename) as file:
             pair, element = line.strip().split(' -> ')
             insertion_rules[pair] = element
 
+# Use polymer_template to populate the initial dictionary of pairs
+# and the initial count of elements.
 for c in range(0, len(polymer_template) - 1):
     this_pair = polymer_template[c] + polymer_template[c + 1]
     current_pairs[this_pair] += 1
     element_count[polymer_template[c]] += 1
-    
+
+# Because my cludgy for loop above doesn't count the final element, count it
 element_count[polymer_template[-1]] += 1
 
 new_pairs = defaultdict(int)
 
+
 def do_step(c_pairs, e_count, i_rules):
+    '''A function to insert elements between pairs according to the insertion
+    rules. For each pair, it adds 2 new resulting pairs to a new dictionary
+    of pairs. E.g. CD > E results in new pairs CE and ED. If a pair in the
+    current_pair dict doesn't have an insertion rule, it just copies that pair
+    to the new dict. This function also updates the count. E.g., for CD > E,
+    update the count of E by the count of pair CD.'''
+    
     new_pairs = defaultdict(int)
     for this_pair in c_pairs:
         if this_pair in i_rules:
