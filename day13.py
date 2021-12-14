@@ -1,5 +1,6 @@
 filename = 'puzzle_input/day13.txt'
 #filename = 'puzzle_input/test_input.txt'
+#filename = 'puzzle_input/day13excessive.txt'
 
 coords = set()    # Storing as a set so we don't have to worry about duplicates
 folds = []
@@ -67,8 +68,8 @@ for y in range(0, max_y + 1):
     line = ''
     for x in range(0, max_x + 1):
         if (x, y) in coords:
-            line += '#'
+            line += '⬜'
         else:
-            line += ' '
+            line += '⬛'
     print(line)
 
