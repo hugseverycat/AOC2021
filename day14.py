@@ -7,9 +7,9 @@ filename = 'puzzle_input/day14.txt'
 # Since we don't need the full polymer, we just note the
 # pairs, elements, and the count of each
 
-rules = {}                          # E.g rule AB -> C: key=AB, value=C
-element_pairs = defaultdict(int)    # E.g key=AB, value=integer
-count_dict = defaultdict(int)       # E.g key=A, value=integer
+insertion_rules = {}                # E.g rule AB -> C: key=AB, value=C
+current_pairs = defaultdict(int)    # E.g key=AB, value=integer
+element_count = defaultdict(int)    # E.g key=A, value=integer
 
 
 # Process input
@@ -19,46 +19,43 @@ with open(filename) as file:
     for line in file:
         if line.strip() != '':    # Skip the blank line
             pair, element = line.strip().split(' -> ')
-            rules[pair] = element
+            insertion_rules[pair] = element
 
 # Use polymer_template to populate the initial dictionary of pairs
 # and the initial count of elements.
 for c in range(0, len(polymer_template) - 1):
     this_pair = polymer_template[c] + polymer_template[c + 1]
-    element_pairs[this_pair] += 1
-    count_dict[polymer_template[c]] += 1
+    current_pairs[this_pair] += 1
+    element_count[polymer_template[c]] += 1
 
 # Because my cludgy for loop above doesn't count the final element
 # in polymer_template, count it
-count_dict[polymer_template[-1]] += 1
-
-
-def do_step(current_pairs, element_count, insertion_rules):
-    '''A function to insert elements between pairs according to the insertion
-    rules. For each pair, it adds 2 new resulting pairs to a new dictionary
-    of pairs. E.g. CD > E results in new pairs CE and ED. If a pair in the
-    current_pair dict doesn't have an insertion rule, it just copies that pair
-    to the new dict. This function also updates the count. E.g., for CD > E,
-    update the count of E by the count of pair CD.'''
-    
-    new_pairs = defaultdict(int)
-    for this_pair in current_pairs:
-        if this_pair in insertion_rules:
-            new_element = insertion_rules[this_pair]
-            new1 = this_pair[0] + new_element
-            new2 = new_element + this_pair[1]
-            new_pairs[new1] += current_pairs[this_pair]
-            new_pairs[new2] += current_pairs[this_pair]
-            element_count[new_element] += current_pairs[this_pair]
-        else:
-            new_pairs[this_pair] = current_pairs[this_pair]
-    return new_pairs
-
+element_count[polymer_template[-1]] += 1
 
 steps = 40
 
 for i in range(0, steps):
-    element_pairs = do_step(element_pairs, count_dict, rules)
+    new_pairs = defaultdict(int)    # Put all the pairs from this step here
+    # Each pair acts exactly the same on each step. So we don't need the order
+    # in the larger string. Just the pair and the count of each unique pair
+    for this_pair in current_pairs:
+        new_element = insertion_rules[this_pair]
+        
+        # Create 2 new pairs from the insertion rules. For example, AB -> C
+        # changes pair AB into 2 new pairs: AC and CB.
+        new1 = this_pair[0] + new_element
+        new2 = new_element + this_pair[1]
+        
+        # Add the 2 new pairs to the new_pair dict. Their count is equal to the
+        # old pair. So 25 ABs result in 25 ACs and 25 BCs.
+        new_pairs[new1] += current_pairs[this_pair]
+        new_pairs[new2] += current_pairs[this_pair]
+        
+        # The only new character we've added to the overall string is the new
+        # added element. The quantity is the same as the pair that generated it
+        # For example, 25 ABs will generate 25 new Cs if the rule is AB -> C
+        element_count[new_element] += current_pairs[this_pair]
+    current_pairs = new_pairs
 
-print(max(count_dict.values()) - min(count_dict.values()))
+print(max(element_count.values()) - min(element_count.values()))
 
