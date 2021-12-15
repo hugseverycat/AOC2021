@@ -1,4 +1,4 @@
-from collections import defaultdict, Counter
+from collections import defaultdict
 
 filename = 'puzzle_input/day14.txt'
 #filename = 'puzzle_input/test_input.txt'
@@ -24,8 +24,9 @@ with open(filename) as file:
 for c in range(0, len(polymer_template) - 1):
     this_pair = polymer_template[c:c+2]
     current_pairs[this_pair] += 1
+    element_count[this_pair[int(c != 0)]] += 1
 
-element_count = Counter(polymer_template)
+
 steps = 40
 
 for i in range(0, steps):
