@@ -1,11 +1,10 @@
-from collections import defaultdict
+from collections import defaultdict, Counter
 
 filename = 'puzzle_input/day14.txt'
 #filename = 'puzzle_input/test_input.txt'
 
-# We will keep track of everything in a dictionary
-# Since we don't need the full polymer, we just note the
-# pairs, elements, and the count of each
+# We will keep track of everything in dictionaries. Since we don't need
+# the full polymer, we just track the pairs, elements, and their counts
 
 insertion_rules = {}                # E.g rule AB -> C: key=AB, value=C
 current_pairs = defaultdict(int)    # E.g key=AB, value=integer
@@ -22,16 +21,11 @@ with open(filename) as file:
             insertion_rules[pair] = element
 
 # Use polymer_template to populate the initial dictionary of pairs
-# and the initial count of elements.
 for c in range(0, len(polymer_template) - 1):
-    this_pair = polymer_template[c] + polymer_template[c + 1]
+    this_pair = polymer_template[c:c+2]
     current_pairs[this_pair] += 1
-    element_count[polymer_template[c]] += 1
 
-# Because my cludgy for loop above doesn't count the final element
-# in polymer_template, count it
-element_count[polymer_template[-1]] += 1
-
+element_count = Counter(polymer_template)
 steps = 40
 
 for i in range(0, steps):
