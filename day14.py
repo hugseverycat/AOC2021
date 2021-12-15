@@ -41,7 +41,7 @@ for i in range(0, steps):
         new2 = new_element + this_pair[1]
         
         # Add the 2 new pairs to the new_pair dict. Their count is equal to the
-        # old pair. So 25 ABs result in 25 ACs and 25 BCs.
+        # old pair. So 25 ABs result in 25 ACs and 25 CBs.
         new_pairs[new1] += current_pairs[this_pair]
         new_pairs[new2] += current_pairs[this_pair]
         
