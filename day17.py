@@ -34,9 +34,14 @@ def estimate_x(x_tar):
 x_target = (135, 155)
 y_target = (-102, -78)
 
+#target area: x=20..30, y=-10..-5
+x_target = (20, 30)
+y_target = (-10, -5)
+
 xmin, xmax = estimate_x(x_target)
 max_y = 0
 
+print(xmin, xmax)
 position = (0, 0)
 
 '''for vx in range(xmin, xmax):
@@ -55,6 +60,6 @@ velocity = (17, 101)
 i = 1
 while position[1] > y_target[1]:
     position, velocity = step(position, velocity)
-    print("step:", i, "position:", position, "velocity:", velocity)
+    #print("step:", i, "position:", position, "velocity:", velocity)
     i += 1
 
