@@ -130,6 +130,10 @@ def add_snums(snum1, snum2):
 
 
 def magnitude(snum):
+    # This will keep finding pairs in the form [n, m] and will replace
+    # them with the magnitude. It will skip nested pairs (e.g. [n, [m, o]])
+    # Eventually there will be only one value left, at which point
+    # we'll return the answer.
     while len(snum) > 1:
         m = 0
         left = 3
@@ -138,20 +142,26 @@ def magnitude(snum):
         while True:
             c = snum[i]
             if type(c) == int:
+                # Check whether it is the form we want: [n, m]
                 if snum[i+1] == ',' and type(snum[i+2]) == int:
+                    # Calculate the magnitude (m)
                     left *= c
                     right *= snum[i+2]
-                    try:
-                        m = left + right
-                    except TypeError:
-                        print("error", ''.join([str(c) for c in snum]))
-                        return [0]
+                    m = left + right
+                    
+                    # Replace the left bracket with the magnitude
                     snum[i-1] = m
+                    # Delete the rest of the pair (e.g "n, m]")
                     del snum[i:i+4]
+                    
+                    # Reset variables and continue searching
                     m = 0
                     left = 3
                     right = 2
             i += 1
+            
+            # When we reach the end, break out of this loop and
+            # start searching again
             if i >= len(snum):
                 break
     return snum
