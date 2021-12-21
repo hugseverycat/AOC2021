@@ -49,10 +49,10 @@ def to_decimal(img_str):
 
 def expand(partial_image):
     # Out of frustration, I just expanded it hugely instead of smartly
-    min_x = -200
-    max_x = 600
-    min_y = -200
-    max_y = 600
+    min_x = -100
+    max_x = 200
+    min_y = -100
+    max_y = 200
     
     for ty in range(min_y, max_y):
         for tx in range(min_x, max_x):
