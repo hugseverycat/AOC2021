@@ -1,4 +1,3 @@
-from copy import deepcopy
 filename = 'puzzle_input/day25.txt'
 #filename = 'puzzle_input/test_input.txt'
 
