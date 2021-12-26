@@ -32,20 +32,17 @@ def get_next(cuc, eh, sh):
     
 def do_step(eh, sh):
     # A function to do an entire step of movement
-    moved = None
-    
     # New sets to hold the east-going and south-going herds
     new_east = set()
     new_south = set()
     moved = 0
 
     for cucumber in eh:
-        # Check whether any other sea cucumbers are in the position this cucumber
-        # wants to move to
+        # Get the position the cucumber wants to move to
         x, y = get_next(cucumber, eh, sh)
         
-        # If there is a sea cucumber, this one doesn't move. add its current position
-        # to the new set.
+        # Check if that location is already occupied. If there is a sea cucumber, 
+        # this one doesn't move. add its current position to the new set.
         if (x, y) in eh or (x, y) in sh:
             new_east.add(cucumber)
         else:
@@ -75,5 +72,5 @@ while moved != 0:
     east_herd, south_herd, moved = do_step(east_herd, south_herd)
     n += 1
 
-print(n)
+print("Part 1:", n)
 
